@@ -14,23 +14,17 @@ public class Life {
     }
     
     int maskArea(final int index, final int w, final int size) {
-    	int mask = 0;
-    	for (int i = -1; i <= 1; i++) {
-    		int pos = index + i * w;
-    		int min = Math.floorDiv(pos--, w) * w;
-    		int max = min + w;
-    		if (max > 0) {
-	    		for (int j = 0; j <= 2; j++) {
-	    			int cell = pos + j;
-		    		if (cell >= 0 && cell < size && 
-		    				cell >= min && cell < max ) {
-		    	    	mask ^= 1 << cell;
-		    		}
-	    		}
-    		}
+    	int x = index % w;
+    	int y = Math.floorDiv(index, w);
+    	int pattern = ((x == 0 || x == (w - 1))? 3 : 7);
+    	int crop = (1 << size) - 1;
+    	int offsetX = (x > 0 ? x - 1 : 0);
+    	int offsetY = (y > 1 ? (y - 1) * w :  0);
+    	int mask = (pattern << w | pattern) << offsetX;
+    	if (y > 0) {
+    		mask = ((mask << w ) | (pattern << offsetX)) << offsetY;
     	}
-    	
-    	return mask;
+    	return (mask & crop);
     }
     
     int countBits(final int value) {
@@ -58,12 +52,11 @@ public class Life {
     	int size = w * h;
     	while (size > 0 && index < size) {
 			int population = countNeighbours(world, index, w, size);
-			if (bitAt(world, index) == 1) {
-				if (dies(population)) {
-					newWorld ^= 1 << index;
-				}
-			} else if (grow(population)) {
-				newWorld ^= 1 << index;
+			if (dies(population)) {
+				newWorld &= ~(1 << index);
+			}
+			if (grow(population)) {
+				newWorld |= 1 << index;
 			}
 			index++;
     	}

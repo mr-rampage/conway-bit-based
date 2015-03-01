@@ -63,7 +63,10 @@ public class LifeTest {
     	assertThat(fixture.maskArea(0, 3, 9), is(0b11011));
         assertThat(fixture.maskArea(6, 4, 16), is(0b111011101110));
         assertThat(fixture.maskArea(10, 4, 16), is(0b1110111011100000));
+        										   //110011001100000
         assertThat(fixture.maskArea(8, 4, 16), is(0b11001100110000));
+                                                  //111011101110000
+
         assertThat(fixture.maskArea(2, 4, 16), is(0b11101110));
         assertThat(fixture.maskArea(2, 3, 9), is(0b110110));
     }
