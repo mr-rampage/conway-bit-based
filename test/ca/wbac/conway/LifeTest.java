@@ -1,6 +1,5 @@
 package ca.wbac.conway;
 
-import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
@@ -29,40 +28,6 @@ public class LifeTest {
     public void shouldGrowIfPopulationIsThree() {
         assertThat(fixture.grow(3), is(true));
         assertThat(fixture.grow(1), is(false));
-    }
-    
-    @Test 
-    public void shouldMaskAreaByIndex() {
-    	BitSet world = new BitSet(9);
-    	world.set(0, 9, true);
-    	assertThat(fixture.maskArea(4, 3, 3), is(equalTo(world)));
-    	
-    	world.clear();
-    	world.set(0, 2, true);
-    	world.set(3, 5, true);
-    	assertThat(fixture.maskArea(0, 3, 3), is(equalTo(world)));
-    	
-    	world.clear();
-    	world.set(0, 2, true);
-    	world.set(3, 5, true);
-    	world.set(6, 8, true);
-    	assertThat(fixture.maskArea(3, 3, 3), is(equalTo(world)));
-    	
-    	world.clear();
-    	world.set(1, 3, true);
-    	world.set(4, 6, true);
-    	world.set(7, 9, true);
-    	assertThat(fixture.maskArea(5, 3, 3), is(equalTo(world)));
-    	
-    	world.clear();
-    	world.set(0, 3, true);
-    	world.set(3, 6, true);
-    	assertThat(fixture.maskArea(1, 3, 3), is(equalTo(world)));
-    	
-    	world.clear();
-    	world.set(3, 6, true);
-    	world.set(6, 9, true);
-    	assertThat(fixture.maskArea(7, 3, 3), is(equalTo(world)));
     }
     
     @Test

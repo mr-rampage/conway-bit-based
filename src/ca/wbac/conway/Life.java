@@ -15,28 +15,23 @@ public class Life {
         return p == 3;
     }
     
-    BitSet maskArea(int index, int width, int height) {
-    	BitSet mask = new BitSet(width * height);
+    int countNeighbours(BitSet world, int index, int width, int height) {
     	int x = index % width;
     	int y = Math.floorDiv(index, width);
-    	int bits = 9;
+    	int area = 9;
+    	int count = 0;
 
-    	while(bits-- > 0) {
-    		int dx = x - 1 + bits % 3;
-    		int dy = y - 1 + Math.floorDiv(bits, 3);
-    		if (dx >= 0 && dx < width && dy >= 0 && dy < height) {
-    			mask.set(dx + dy * width);
+    	while(area-- > 0) {
+    		int dx = x - 1 + area % 3;
+    		int dy = y - 1 + Math.floorDiv(area, 3);
+    		int i = dx + dy * width;
+    		if (dx >= 0 && dx < width 
+    				&& dy >= 0 && dy < height 
+    				&& i != index && world.get(i)) {
+				count++;
     		}
     	}
-    	
-    	return mask;
-    }
-    
-    int countNeighbours(BitSet world, int index, int width, int height) {
-    	BitSet buffer = (BitSet) world.clone();
-    	BitSet mask = maskArea(index, width, height);
-    	buffer.and(mask);
-    	return buffer.cardinality() - (buffer.get(index) ? 1 : 0);
+    	return count;
     }
     
     BitSet next(BitSet world, int width, int height) {
