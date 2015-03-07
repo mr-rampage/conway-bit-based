@@ -20,14 +20,14 @@ public class LifeTest {
     
     @Test
     public void shouldDieIfUnderOrOverPopulated() {
-        assertThat(fixture.dies(1), is(true));
-        assertThat(fixture.dies(5), is(true));
+        assertThat(fixture.isAlive(1, true), is(false));
+        assertThat(fixture.isAlive(5, true), is(false));
     }
 
     @Test
     public void shouldGrowIfPopulationIsThree() {
-        assertThat(fixture.grow(3), is(true));
-        assertThat(fixture.grow(1), is(false));
+        assertThat(fixture.isAlive(3, true), is(true));
+        assertThat(fixture.isAlive(1, true), is(false));
     }
     
     @Test

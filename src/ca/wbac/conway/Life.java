@@ -7,12 +7,8 @@ public class Life {
     private int width;
     private BitSet world;
     
-    boolean dies(int p) {
-        return (p < 2 || p > 3);
-    }
-
-    boolean grow(int p) {
-        return p == 3;
+    boolean isAlive(int p, boolean isAlive) {
+    	return p == 3 || p == 2 && isAlive;
     }
     
     int countNeighbours(BitSet world, int index, int width, int height) {
@@ -40,8 +36,7 @@ public class Life {
     	int size = width * height;
     	while (index < size) {
 			int population = countNeighbours(world, index, width, height);
-			if (dies(population)) newWorld.set(index, false);
-			if (grow(population)) newWorld.set(index, true);
+			newWorld.set(index, isAlive(population, newWorld.get(index)));
 			index++;
     	}
     	return newWorld;
