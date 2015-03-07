@@ -32,12 +32,10 @@ public class Life {
     
     BitSet next(BitSet world, int width, int height) {
     	BitSet newWorld = (BitSet) world.clone();
-    	int index = 0;
-    	int size = width * height;
-    	while (index < size) {
+    	int index = width * height;
+    	while (index-- > 0) {
 			int population = countNeighbours(world, index, width, height);
 			newWorld.set(index, isAlive(population, newWorld.get(index)));
-			index++;
     	}
     	return newWorld;
     }
